@@ -9,6 +9,8 @@
     내용 : {{ product.content }}
 </p>
 
+<a href="{% url 'products:update_product_post' product.id %}"><button>수정하기</button></a><br>
+
 <a href="{% url 'products:delete_product_post' product.id %}"><button>삭제하기</button></a><br>
 
 <a href="{% url 'products:product_list' %}"><button>목록으로 돌아가기</button></a>

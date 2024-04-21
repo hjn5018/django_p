@@ -21,14 +21,30 @@ def create(request):
         return redirect('products:product_list')
     else:
         form = ProductForm()
-    return render(request, 'products/create.html', {'form': form})
+    return render(request, 'products/create.html', {'form':form})
 
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     return render(request, 'products/product_detail.html', {'product':product})
 
+
 def delete_product_post(request, product_id):
     product_post = get_object_or_404(Product, id=product_id)
     product_post.delete()
     return redirect('products:product_list')
+
+
+@require_http_methods(['GET', 'POST'])
+def update_product_post(request, product_id):
+    if request.method == 'POST':
+        product = Product.objects.get(id=product_id)
+        product.title = request.POST['title']
+        product.content = request.POST['content']
+        form = ProductForm(data=product)
+        form.save()
+        return redirect('products:product_detail', product_id)
+    else:
+        post = get_object_or_404(Product, id=product_id)
+        form = ProductForm(instance=post)
+        return render(request, 'products/create.html', {'form':form})
