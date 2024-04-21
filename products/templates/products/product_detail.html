@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Product Detail</h1>
+<p>
+    제목 : {{ product.title }}
+</p>
+<p>
+    내용 : {{ product.content }}
+</p>
+
+<a href="{% url 'products:delete_product_post' product.id %}"><button>삭제하기</button></a><br>
+
+<a href="{% url 'products:product_list' %}"><button>목록으로 돌아가기</button></a>
+{% endblock content %}

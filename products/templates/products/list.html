@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>썸썸</h1>
+
+<a href="{% url 'products:create' %}"><button>물건 등록하기</button></a>
+
+{% for product in products %}
+<a href="{% url 'products:product_detail' product.id%}">
+    <p>[{{ product.id }}] {{ product.title }}</p>
+</a>
+{% endfor %}
+
+{% endblock content %}
