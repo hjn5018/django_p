@@ -37,14 +37,11 @@ def delete_product_post(request, product_id):
 
 @require_http_methods(['GET', 'POST'])
 def update_product_post(request, product_id):
+    post = get_object_or_404(Product, id=product_id)
     if request.method == 'POST':
-        product = Product.objects.get(id=product_id)
-        product.title = request.POST['title']
-        product.content = request.POST['content']
-        form = ProductForm(data=product)
+        form = ProductForm(request.POST, instance=post)
         form.save()
         return redirect('products:product_detail', product_id)
     else:
-        post = get_object_or_404(Product, id=product_id)
         form = ProductForm(instance=post)
         return render(request, 'products/create.html', {'form':form})
